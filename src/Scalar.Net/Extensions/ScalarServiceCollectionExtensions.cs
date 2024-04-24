@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Scalar.Net.Validation;
 
 namespace Scalar.Net.Extensions;
 
@@ -16,17 +17,5 @@ public static class ScalarServiceCollectionExtensions
         services.AddSingleton<ScalarMiddleware>();
 
         return services;
-    }
-}
-
-internal class ScalarConfigurationOptionsValidator : IValidateOptions<ScalarConfigurationOptions>
-{
-    public ValidateOptionsResult Validate(
-        string? name,
-        ScalarConfigurationOptions options)
-    {
-        if (options.Spec?.Url == null && options.Spec?.Content == null)
-            return ValidateOptionsResult.Fail("Scalar configuration not valid!");
-        return ValidateOptionsResult.Success;
     }
 }
