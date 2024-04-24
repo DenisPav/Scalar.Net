@@ -2,7 +2,7 @@
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/DenisPav/Scalar.Net)
 
-This project is a simple middleware that will expose [Scalar](https://github.com/scalar/scalar/) documentation on the route which you want to for your Swagger/OpenApi specs.
+This project is a simple middleware that will expose [Scalar](https://github.com/scalar/scalar/) documentation for your .NET API on the route which you want for your `Swagger/OpenApi` specs.
 
 # Installation
 You can install this easily from Nuget on the following location:
