@@ -1,0 +1,42 @@
+name: Bump package version
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: |
+            8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Run tests
+        run: dotnet test
+      - name: Bump version
+        id: bump
+        shell: pwsh
+        run: |
+          $xml = [Xml] (Get-Content .\src\Scalar.Net\Scalar.Net.csproj)
+          $version = [Version] $xml.Project.PropertyGroup.Version
+          $newVersion = "{0}.{1}.{2}" -f $version.Major, $version.Minor, ($version.Build + 1)
+          $xml.Project.PropertyGroup.Version = $newVersion
+          $xml.Save("./src/Scalar.Net/Scalar.Net.csproj")
+          echo "::set-output name=newVersion::$newVersion"
+      - name: Commit changes
+        run: |
+          git status
+          git config user.name "scalar.net automation user"
+          git config user.email "scalar-net@users.noreply.github.com"
+          git add ./src/*
+          git commit -m "Bump project version to ${{ steps.bump.outputs.newVersion }}"
+          git push

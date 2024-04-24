@@ -23,7 +23,7 @@ builder.Services.AddScalar(opts =>
 });
 ```
 
-Available configuration options are located [here](./src/Scalar.Net/ScalarConfigurationOptions.cs). And they closely mimic the configuration on the related node packages over on original Scalar repository.
+Available configuration options are located [here](./src/Scalar.Net/ScalarConfigurationOptions.cs). And they closely mimic the configuration on the related node packages over on original Scalar repository. You can find original configuration on this [link](https://github.com/scalar/scalar/tree/main?tab=readme-ov-file#configuration).
 
 After configuring options be sure to also include Scalar middlware in your pipeline in order to show the documentation. You can do this by simply calling next method:
 
