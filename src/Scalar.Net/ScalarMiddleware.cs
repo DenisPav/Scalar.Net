@@ -22,7 +22,7 @@ internal sealed class ScalarMiddleware(IOptions<ScalarConfigurationOptions> opts
     {
         var serializedOptions = JsonSerializer.Serialize(opts.Value, JsonSerializerOptions);
         serializedOptions = HtmlEncoder.Default.Encode(serializedOptions);
-        var scalarHtml = Html.CreateHtml(serializedOptions);
+        var scalarHtml = Html.CreateHtml(opts.Value, serializedOptions);
 
         await context.Response.WriteAsync(scalarHtml);
         await next(context);
