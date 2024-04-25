@@ -3,6 +3,7 @@
 internal static class Html
 {
     private const string Css = """
+                               <style>
                                /* basic theme */
                                .light-mode {
                                  --scalar-color-1: #353535;
@@ -96,28 +97,29 @@ internal static class Html
                                  --scalar-radius-lg: 3px;
                                  --scalar-radius-xl: 3px;
                                }
+                               </style>
                                """;
 
-    public static string CreateHtml(string serializedOptions) => $$$"""
-                                                                    <!DOCTYPE html>
-                                                                    <html>
-                                                                      <head>
-                                                                        <title>API Reference</title>
-                                                                        <meta charset="utf-8" />
-                                                                        <meta
-                                                                          name="viewport"
-                                                                          content="width=device-width, initial-scale=1" />
-                                                                        <style>
-                                                                           {{{Css}}}
-                                                                        </style>
-                                                                      </head>
-                                                                      <body>
-                                                                        <script
-                                                                          id="api-reference"
-                                                                          type="application/json"
-                                                                          data-configuration="{{{serializedOptions}}}"></script>
-                                                                          <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
-                                                                      </body>
-                                                                    </html>
-                                                                    """;
+    private static string GetDefaultCss(ScalarConfigurationOptions rawOptions)
+      => rawOptions.Theme is null ? Css : string.Empty;
+    public static string CreateHtml(ScalarConfigurationOptions rawOptions, string serializedOptions) => $$$"""
+           <!DOCTYPE html>
+           <html>
+             <head>
+               <title>API Reference</title>
+               <meta charset="utf-8" />
+               <meta
+                 name="viewport"
+                 content="width=device-width, initial-scale=1" />
+                {{{GetDefaultCss(rawOptions)}}}
+             </head>
+             <body>
+               <script
+                 id="api-reference"
+                 type="application/json"
+                 data-configuration="{{{serializedOptions}}}"></script>
+                 <script src="{{{rawOptions.Cdn ?? "https://cdn.jsdelivr.net/npm/@scalar/api-reference"}}}"></script>
+             </body>
+           </html>
+           """;
 }

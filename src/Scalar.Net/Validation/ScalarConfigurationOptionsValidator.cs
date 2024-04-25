@@ -10,6 +10,7 @@ internal class ScalarConfigurationOptionsValidator : IValidateOptions<ScalarConf
     {
         if (options.Spec?.Url == null && options.Spec?.Content == null)
             return ValidateOptionsResult.Fail("Scalar configuration not valid!");
+        
         return ValidateOptionsResult.Success;
     }
 }

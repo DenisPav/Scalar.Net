@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>Scalar.Net</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.3</Version>
     <RepositoryUrl>https://github.com/DenisPav/Scalar.Net</RepositoryUrl>
     <Description>
       Exposes Scalar documentation page in your .NET API for your Swagger/OpenApi specs.

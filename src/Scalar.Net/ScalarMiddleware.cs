@@ -21,9 +21,8 @@ internal sealed class ScalarMiddleware(IOptions<ScalarConfigurationOptions> opts
         RequestDelegate next)
     {
         var serializedOptions = JsonSerializer.Serialize(opts.Value, JsonSerializerOptions);
-        Console.WriteLine(serializedOptions);
         serializedOptions = HtmlEncoder.Default.Encode(serializedOptions);
-        var scalarHtml = Html.CreateHtml(serializedOptions);
+        var scalarHtml = Html.CreateHtml(opts.Value, serializedOptions);
 
         await context.Response.WriteAsync(scalarHtml);
         await next(context);
