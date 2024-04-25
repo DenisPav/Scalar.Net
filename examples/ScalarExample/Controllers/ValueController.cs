@@ -2,6 +2,9 @@
 
 namespace ScalarExample.Controllers;
 
+/// <summary>
+/// Controller returning collection of values
+/// </summary>
 [ApiController]
 [Route("/api/values")]
 [ProducesResponseType(typeof(IEnumerable<Value>), StatusCodes.Status200OK)]
@@ -30,4 +33,9 @@ public class ValueController
     }
 }
 
+/// <summary>
+/// Model class for ValueController endpoint
+/// </summary>
+/// <param name="Id"></param>
+/// <param name="Name"></param>
 public record Value(int Id, string Name);
